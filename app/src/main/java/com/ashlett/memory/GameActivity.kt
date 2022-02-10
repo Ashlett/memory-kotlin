@@ -19,16 +19,23 @@ class GameActivity : AppCompatActivity() {
         Item("G"), Item("G"),
         Item("H"), Item("H"),
     )
+    private val game = GameLogic(itemList = itemList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
         val gameGrid : RecyclerView = findViewById(R.id.game_grid)
-        gameGrid.layoutManager = GridLayoutManager(applicationContext, 4)
+        gameGrid.layoutManager = GridLayoutManager(this, 4)
         itemList.shuffle()
-        val itemAdapter = ItemAdapter(applicationContext, itemList)
+        val itemAdapter = ItemAdapter(this, itemList)
         gameGrid.adapter = itemAdapter
+    }
+
+    fun checkGameIsWon() {
+        if (game.isWon()) {
+            startActivity(WinActivity.createIntent(ctx = this))
+        }
     }
 
     companion object {

@@ -1,14 +1,14 @@
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.ashlett.memory.GameActivity
 import com.ashlett.memory.Item
 import com.ashlett.memory.R
 
 
-class ItemAdapter(var context: Context, private val itemList: Array<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(var context: GameActivity, private val itemList: Array<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val button: Button = itemView.findViewById(R.id.btn_item)
@@ -25,6 +25,8 @@ class ItemAdapter(var context: Context, private val itemList: Array<Item>) : Rec
 
         holder.button.setOnClickListener {
             holder.button.textScaleX = 1f
+            item.isVisible = true
+            context.checkGameIsWon()
         }
     }
 
