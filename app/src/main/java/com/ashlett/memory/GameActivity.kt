@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ashlett.memory.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
-    private val itemList : Array<Item> = arrayOf(
+    private val itemList : List<Item> = listOf(
         Item("A"), Item("A"),
         Item("B"), Item("B"),
         Item("C"), Item("C"),
@@ -18,7 +18,7 @@ class GameActivity : AppCompatActivity() {
         Item("F"), Item("F"),
         Item("G"), Item("G"),
         Item("H"), Item("H"),
-    )
+    ).shuffled()
     private val game = GameLogic(itemList = itemList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +27,20 @@ class GameActivity : AppCompatActivity() {
         val binding: ActivityGameBinding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val itemAdapter = ItemAdapter(
+            itemList = itemList,
+            listener = object : ItemAdapter.Listener {
+                override fun onClick() {
+                    checkGameIsWon()
+                }
+            }
+        )
+
         with(binding) {
-            gameGrid.layoutManager = GridLayoutManager(this@GameActivity, 4)
-            itemList.shuffle()
-            val itemAdapter = ItemAdapter(this@GameActivity, itemList)
-            gameGrid.adapter = itemAdapter
+            gameGrid.apply {
+                layoutManager = GridLayoutManager(this@GameActivity, 4)
+                adapter = itemAdapter
+            }
         }
     }
 

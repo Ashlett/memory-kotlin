@@ -8,7 +8,14 @@ import com.ashlett.memory.Item
 import com.ashlett.memory.R
 
 
-class ItemAdapter(var context: GameActivity, private val itemList: Array<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(
+    private val itemList: List<Item>,
+    private val listener: Listener
+) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+
+    interface Listener {
+        fun onClick()
+    }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val button: Button = itemView.findViewById(R.id.btn_item)
@@ -26,7 +33,7 @@ class ItemAdapter(var context: GameActivity, private val itemList: Array<Item>) 
         holder.button.setOnClickListener {
             holder.button.textScaleX = 1f
             item.isVisible = true
-            context.checkGameIsWon()
+            listener.onClick()
         }
     }
 

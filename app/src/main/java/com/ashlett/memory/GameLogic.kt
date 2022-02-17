@@ -1,6 +1,6 @@
 package com.ashlett.memory
 
-class GameLogic(private val itemList: Array<Item>) {
+class GameLogic(private val itemList: List<Item>) {
     fun isWon(): Boolean {
         for (item in itemList) {
             if (!item.isVisible) {
