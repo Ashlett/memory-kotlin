@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.ashlett.memory.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
     private val itemList : Array<Item> = arrayOf(
@@ -23,13 +23,16 @@ class GameActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
 
-        val gameGrid : RecyclerView = findViewById(R.id.game_grid)
-        gameGrid.layoutManager = GridLayoutManager(this, 4)
-        itemList.shuffle()
-        val itemAdapter = ItemAdapter(this, itemList)
-        gameGrid.adapter = itemAdapter
+        val binding: ActivityGameBinding = ActivityGameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        with(binding) {
+            gameGrid.layoutManager = GridLayoutManager(this@GameActivity, 4)
+            itemList.shuffle()
+            val itemAdapter = ItemAdapter(this@GameActivity, itemList)
+            gameGrid.adapter = itemAdapter
+        }
     }
 
     fun checkGameIsWon() {

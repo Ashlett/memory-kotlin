@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import com.ashlett.memory.databinding.ActivityWinBinding
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter
-import nl.dionsegijn.konfetti.xml.KonfettiView
 import java.util.concurrent.TimeUnit
 
 class WinActivity : AppCompatActivity() {
@@ -25,14 +24,15 @@ class WinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_win)
 
-        val konfetti: KonfettiView = findViewById(R.id.konfetti)
-        konfetti.start(party)
+        val binding: ActivityWinBinding = ActivityWinBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val playButton : Button = findViewById(R.id.btn_play_again)
-        playButton.setOnClickListener {
-            startActivity(GameActivity.createIntent(ctx = this))
+        with(binding) {
+            konfetti.start(party)
+            btnPlayAgain.setOnClickListener {
+                startActivity(GameActivity.createIntent(this@WinActivity))
+            }
         }
     }
 
