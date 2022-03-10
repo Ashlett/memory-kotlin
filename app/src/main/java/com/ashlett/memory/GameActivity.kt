@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ashlett.memory.databinding.ActivityGameBinding
 
@@ -24,7 +23,7 @@ class GameActivity : AppCompatActivity(), GameView {
             itemList = emptyList(),
             listener = object : ItemAdapter.Listener {
                 override fun onClick(position: Int) {
-                    presenter.businessLogicHere(position)
+                    presenter.makeMove(position)
                 }
             }
         )
@@ -42,7 +41,6 @@ class GameActivity : AppCompatActivity(), GameView {
 
     override fun renderView(list: List<Item>) {
         itemAdapter.itemList = list
-        Log.d("GameActivity", "itemList is $list")
         itemAdapter.notifyDataSetChanged()
     }
 

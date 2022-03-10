@@ -10,7 +10,24 @@ class GameLogic(private val itemList: List<Item>) {
         return true
     }
 
-    fun getItemsWithoutPairs(): List<Item>{
+    fun makeMove(position: Int) {
+        if (getVisibleItemCount() % 2 == 0) {
+            hideItemsWithoutPairs()
+        }
+        showItemAt(position)
+    }
+
+    private fun hideItemsWithoutPairs() {
+        for (item in getItemsWithoutPairs()) {
+            item.isVisible = false
+        }
+    }
+
+    private fun showItemAt(position: Int) {
+        itemList[position].isVisible = true
+    }
+
+    private fun getItemsWithoutPairs(): List<Item>{
         val soloItems: MutableList<Item> = mutableListOf()
         for (item1 in itemList) {
             if (item1.isVisible) {
@@ -28,7 +45,7 @@ class GameLogic(private val itemList: List<Item>) {
         return soloItems
     }
 
-    fun getVisibleItemCount(): Int {
+    private fun getVisibleItemCount(): Int {
         var count = 0
         for (item in itemList) {
             if (item.isVisible) {
@@ -37,5 +54,4 @@ class GameLogic(private val itemList: List<Item>) {
         }
         return count
     }
-
 }
