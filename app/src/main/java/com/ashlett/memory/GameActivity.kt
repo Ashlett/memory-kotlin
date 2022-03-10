@@ -48,6 +48,11 @@ class GameActivity : AppCompatActivity(), GameView {
         startActivity(WinActivity.createIntent(ctx = this))
     }
 
+    override fun onStop() {
+        presenter.stop()
+        super.onStop()
+    }
+
     companion object {
         fun createIntent(ctx: Context): Intent =
             Intent(ctx, GameActivity::class.java)

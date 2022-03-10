@@ -1,6 +1,19 @@
 package com.ashlett.memory
 
-class GameLogic(private val itemList: List<Item>) {
+class GameLogic {
+    private val itemList: List<Item> = listOf(
+        Item("A"), Item("A"),
+        Item("B"), Item("B"),
+        Item("C"), Item("C"),
+        Item("D"), Item("D"),
+        Item("E"), Item("E"),
+        Item("F"), Item("F"),
+        Item("G"), Item("G"),
+        Item("H"), Item("H"),
+    ).shuffled()
+
+    fun getItemList() = itemList
+
     fun isWon(): Boolean {
         for (item in itemList) {
             if (!item.isVisible) {

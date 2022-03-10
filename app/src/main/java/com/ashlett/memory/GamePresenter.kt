@@ -6,32 +6,25 @@ interface Presenter<in T> {
 }
 
 
-class GamePresenter : Presenter<GameView> {
-    private val itemList: List<Item> = listOf(
-        Item("A"), Item("A"),
-        Item("B"), Item("B"),
-        Item("C"), Item("C"),
-        Item("D"), Item("D"),
-        Item("E"), Item("E"),
-        Item("F"), Item("F"),
-        Item("G"), Item("G"),
-        Item("H"), Item("H"),
-    ).shuffled()
-    private val game = GameLogic(itemList)
+class GamePresenter (
+    private val game: GameLogic = GameLogic()
+): Presenter<GameView> {
     private var view: GameView? = null
 
     override fun start(view: GameView) {
         this.view = view
-        view.renderView(itemList)
+        view.renderView(game.getItemList())
     }
 
-    override fun stop() {}
+    override fun stop() {
+        this.view = null
+    }
 
     fun makeMove(position: Int) {
         game.makeMove(position)
         if (game.isWon()) {
             view?.gameOver()
         }
-        view?.renderView(itemList)
+        view?.renderView(game.getItemList())
     }
 }
