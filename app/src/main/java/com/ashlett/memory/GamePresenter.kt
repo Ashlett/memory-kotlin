@@ -8,9 +8,7 @@ interface Presenter<T> {
 }
 
 
-class GamePresenter(
-
-) : Presenter<GameView> {
+class GamePresenter : Presenter<GameView> {
     private val itemList: List<Item> = listOf(
         Item("A"), Item("A"),
         Item("B"), Item("B"),
@@ -22,7 +20,6 @@ class GamePresenter(
         Item("H"), Item("H"),
     ).shuffled()
     private val game = GameLogic(itemList)
-
     private var view: GameView? = null
 
     override fun start(view: GameView) {
@@ -46,7 +43,8 @@ class GamePresenter(
             val items = game.getItemsWithoutPairs()
             Log.d("GamePresenter", "items w/o pairs: $items")
             if (items.isNotEmpty()) {
-                TODO("freeze game for x seconds so player can memorize")
+                view?.renderView(itemList)
+                Thread.sleep(1000)
             }
             for (item in items) {
                 item.isVisible = false

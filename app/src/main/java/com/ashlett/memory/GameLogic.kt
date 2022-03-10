@@ -11,21 +11,21 @@ class GameLogic(private val itemList: List<Item>) {
     }
 
     fun getItemsWithoutPairs(): List<Item>{
-        val items: MutableList<Item> = mutableListOf()
-        for ((pos1, item1) in itemList.withIndex()) {
+        val soloItems: MutableList<Item> = mutableListOf()
+        for (item1 in itemList) {
             if (item1.isVisible) {
                 var hasPair = false
-                for ((pos2, item2) in itemList.withIndex()) {
-                    if (item2.text == item1.text && item2.isVisible && pos2 != pos1) {
+                for (item2 in itemList) {
+                    if (item2 != item1 && item2.text == item1.text && item2.isVisible) {
                         hasPair = true
                     }
                 }
                 if (!hasPair) {
-                    items.add(item1)
+                    soloItems.add(item1)
                 }
             }
         }
-        return items
+        return soloItems
     }
 
     fun getVisibleItemCount(): Int {
