@@ -32,23 +32,18 @@ class GamePresenter : Presenter<GameView> {
     }
 
     fun businessLogicHere(position: Int) {
+        val visibleItemCount: Int = game.getVisibleItemCount()
+        if (visibleItemCount % 2 == 0) {
+            val items = game.getItemsWithoutPairs()
+            for (item in items) {
+                item.isVisible = false
+            }
+        }
+
         itemList[position].isVisible = true
 
         if (game.isWon()) {
             view?.gameOver()
-        }
-
-        val visibleItemCount: Int = game.getVisibleItemCount()
-        if (visibleItemCount % 2 == 0) {
-            val items = game.getItemsWithoutPairs()
-            Log.d("GamePresenter", "items w/o pairs: $items")
-            if (items.isNotEmpty()) {
-                view?.renderView(itemList)
-                Thread.sleep(1000)
-            }
-            for (item in items) {
-                item.isVisible = false
-            }
         }
 
         view?.renderView(itemList)
