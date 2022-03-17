@@ -1,4 +1,4 @@
-.PHONY: all assemble clean lint test
+.PHONY: all assemble build clean lint test
 
 all: clean lint test assemble
 
