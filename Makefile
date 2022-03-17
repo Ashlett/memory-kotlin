@@ -15,7 +15,7 @@ format:
 	./gradlew formatKotlin
 
 lint:
-	./gradlew lintDebug lintKotlin
+	./gradlew lintDebug lintKotlin detekt
 
 test:
 	./gradlew testDebugUnitTest
