@@ -38,7 +38,7 @@ class GameActivity : AppCompatActivity() {
 
         with(binding) {
             gameGrid.apply {
-                layoutManager = GridLayoutManager(this@GameActivity, 4)
+                layoutManager = GridLayoutManager(this@GameActivity, GRID_SIZE)
                 adapter = itemAdapter
             }
         }
@@ -51,6 +51,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val GRID_SIZE = 4
         fun createIntent(ctx: Context): Intent =
             Intent(ctx, GameActivity::class.java)
     }

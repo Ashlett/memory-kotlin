@@ -13,13 +13,13 @@ import java.util.concurrent.TimeUnit
 class WinActivity : AppCompatActivity() {
 
     private val party = Party(
-        speed = 0f,
-        maxSpeed = 30f,
-        damping = 0.9f,
-        spread = 360,
-        colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
-        emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
-        position = Position.Relative(0.5, 0.3)
+        speed = SPEED,
+        maxSpeed = MAX_SPEED,
+        damping = DAMPING,
+        spread = SPREAD,
+        colors = listOf(YELLOW, RED, PINK, VIOLET),
+        emitter = Emitter(duration = DURATION_MS, TimeUnit.MILLISECONDS).max(MAX_AMOUNT),
+        position = Position.Relative(POSITION_X, POSITION_Y)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +37,19 @@ class WinActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val SPEED = 0f
+        private const val MAX_SPEED = 30f
+        private const val DAMPING = 0.9f
+        private const val SPREAD = 360
+        private const val YELLOW = 0xfce18a
+        private const val RED = 0xff726d
+        private const val PINK = 0xf4306d
+        private const val VIOLET = 0xb48def
+        private const val DURATION_MS = 100L
+        private const val MAX_AMOUNT = 100
+        private const val POSITION_X = 0.5
+        private const val POSITION_Y = 0.3
+
         fun createIntent(ctx: Context): Intent =
             Intent(ctx, WinActivity::class.java)
     }
