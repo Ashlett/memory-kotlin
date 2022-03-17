@@ -25,6 +25,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'gradle'
       - name: lint
         run: make clean lint
 
@@ -35,6 +41,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'gradle'
       - name: test
         run: make clean test
 
@@ -45,5 +57,11 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'gradle'
       - name: assemble
         run: make clean assemble
