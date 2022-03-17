@@ -3,13 +3,13 @@ package com.ashlett.memory
 import ItemAdapter
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ashlett.memory.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
-    private val itemList : List<Item> = listOf(
+    private val itemList: List<Item> = listOf(
         Item("A"), Item("A"),
         Item("B"), Item("B"),
         Item("C"), Item("C"),

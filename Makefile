@@ -1,6 +1,6 @@
-.PHONY: all assemble build clean lint test
+.PHONY: all assemble build clean format lint test
 
-all: clean lint test assemble
+all: clean format lint test assemble
 
 assemble:
 	./gradlew assembleDebug
@@ -11,8 +11,11 @@ build:
 clean:
 	./gradlew clean
 
+format:
+	./gradlew formatKotlin
+
 lint:
-	./gradlew lintDebug
+	./gradlew lintDebug lintKotlin
 
 test:
 	./gradlew testDebugUnitTest
