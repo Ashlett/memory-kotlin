@@ -1,0 +1,37 @@
+name: Memory
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: lint
+        run: ./gradlew lintDebug
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: test
+        run: ./gradlew testDebugUnitTest
+
+  build:
+    name: "Build APK"
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: assemble
+        run: ./gradlew assembleDebug
