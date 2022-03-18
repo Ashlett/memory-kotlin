@@ -3,8 +3,8 @@ package com.ashlett.memory
 import ItemAdapter
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ashlett.memory.databinding.ActivityGameBinding
 
@@ -33,7 +33,7 @@ class GameActivity : AppCompatActivity(), GameView {
 
         with(binding) {
             gameGrid.apply {
-                layoutManager = GridLayoutManager(this@GameActivity, 4)
+                layoutManager = GridLayoutManager(this@GameActivity, GRID_SIZE)
                 adapter = itemAdapter
             }
         }
@@ -54,6 +54,7 @@ class GameActivity : AppCompatActivity(), GameView {
     }
 
     companion object {
+        private const val GRID_SIZE = 4
         fun createIntent(ctx: Context): Intent =
             Intent(ctx, GameActivity::class.java)
     }
