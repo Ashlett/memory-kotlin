@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ashlett.memory.Item
 import com.ashlett.memory.R
 
-
 class ItemAdapter(
     private val itemList: List<Item>,
     private val listener: Listener
@@ -16,7 +15,7 @@ class ItemAdapter(
         fun onClick()
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val button: Button = itemView.findViewById(R.id.btn_item)
     }
 
