@@ -5,10 +5,9 @@ interface Presenter<in T> {
     fun stop() {}
 }
 
-
-class GamePresenter (
+class GamePresenter(
     private val game: GameLogic = GameLogic()
-): Presenter<GameView> {
+) : Presenter<GameView> {
     private var view: GameView? = null
 
     override fun start(view: GameView) {
