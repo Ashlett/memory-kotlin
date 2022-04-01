@@ -41,9 +41,7 @@ class GameActivity : AppCompatActivity(), GameView {
 
     override fun renderView(list: List<Item>) {
         itemAdapter.itemList = list
-        for (i in list.indices) {
-            itemAdapter.notifyItemChanged(i)
-        }
+        itemAdapter.notifyItemRangeChanged(0, list.size)
     }
 
     override fun gameOver() {
