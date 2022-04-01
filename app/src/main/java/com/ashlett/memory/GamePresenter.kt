@@ -1,10 +1,5 @@
 package com.ashlett.memory
 
-interface Presenter<in T> {
-    fun start(view: T) {}
-    fun stop() {}
-}
-
 class GamePresenter(
     private val game: GameLogic = GameLogic()
 ) : Presenter<GameView> {
