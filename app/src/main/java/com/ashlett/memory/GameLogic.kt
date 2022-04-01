@@ -2,14 +2,14 @@ package com.ashlett.memory
 
 class GameLogic {
     private val itemList: List<Item> = listOf(
-        Item("A"), Item("A"),
-        Item("B"), Item("B"),
-        Item("C"), Item("C"),
-        Item("D"), Item("D"),
-        Item("E"), Item("E"),
-        Item("F"), Item("F"),
-        Item("G"), Item("G"),
-        Item("H"), Item("H"),
+        Item("\uD83D\uDE42"), Item("\uD83D\uDE42"),
+        Item("\uD83D\uDC25"), Item("\uD83D\uDC25"),
+        Item("\uD83D\uDC1F"), Item("\uD83D\uDC1F"),
+        Item("⭐️"), Item("⭐️"),
+        Item("\uD83C\uDF4E"), Item("\uD83C\uDF4E"),
+        Item("⚽️"), Item("⚽️"),
+        Item("\uD83D\uDD6F"), Item("\uD83D\uDD6F"),
+        Item("❤️"), Item("❤️"),
     ).shuffled()
 
     fun getItemList() = itemList
