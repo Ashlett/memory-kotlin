@@ -7,12 +7,12 @@ import com.ashlett.memory.Item
 import com.ashlett.memory.R
 
 class ItemAdapter(
-    private val itemList: List<Item>,
+    var itemList: List<Item>,
     private val listener: Listener
 ) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     interface Listener {
-        fun onClick()
+        fun onClick(position: Int)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,11 +27,10 @@ class ItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
         holder.button.text = item.text
+        holder.button.textScaleX = if (item.isVisible) 1f else 0f
 
         holder.button.setOnClickListener {
-            holder.button.textScaleX = 1f
-            item.isVisible = true
-            listener.onClick()
+            listener.onClick(position)
         }
     }
 

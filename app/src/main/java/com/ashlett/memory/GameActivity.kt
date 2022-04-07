@@ -8,18 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ashlett.memory.databinding.ActivityGameBinding
 
-class GameActivity : AppCompatActivity() {
-    private val itemList: List<Item> = listOf(
-        Item("\uD83D\uDE42"), Item("\uD83D\uDE42"),
-        Item("\uD83D\uDC25"), Item("\uD83D\uDC25"),
-        Item("\uD83D\uDC1F"), Item("\uD83D\uDC1F"),
-        Item("⭐️"), Item("⭐️"),
-        Item("\uD83C\uDF4E"), Item("\uD83C\uDF4E"),
-        Item("⚽️"), Item("⚽️"),
-        Item("\uD83D\uDD6F"), Item("\uD83D\uDD6F"),
-        Item("❤️"), Item("❤️"),
-    ).shuffled()
-    private val game = GameLogic(itemList = itemList)
+class GameActivity : AppCompatActivity(), GameView {
+
+    private lateinit var presenter: GamePresenter
+    private lateinit var itemAdapter: ItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +19,17 @@ class GameActivity : AppCompatActivity() {
         val binding: ActivityGameBinding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val itemAdapter = ItemAdapter(
-            itemList = itemList,
+        itemAdapter = ItemAdapter(
+            itemList = emptyList(),
             listener = object : ItemAdapter.Listener {
-                override fun onClick() {
-                    checkGameIsWon()
+                override fun onClick(position: Int) {
+                    presenter.makeMove(position)
                 }
             }
         )
+
+        presenter = GamePresenter()
+        presenter.start(this)
 
         with(binding) {
             gameGrid.apply {
@@ -44,10 +39,18 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    fun checkGameIsWon() {
-        if (game.isWon()) {
-            startActivity(WinActivity.createIntent(ctx = this))
-        }
+    override fun renderView(list: List<Item>) {
+        itemAdapter.itemList = list
+        itemAdapter.notifyItemRangeChanged(0, list.size)
+    }
+
+    override fun gameOver() {
+        startActivity(WinActivity.createIntent(ctx = this))
+    }
+
+    override fun onStop() {
+        presenter.stop()
+        super.onStop()
     }
 
     companion object {
