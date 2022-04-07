@@ -1,5 +1,6 @@
 package com.ashlett.memory
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -47,7 +48,8 @@ class GameLogicTest {
                 Item("B", false), Item("B", false),
             )
         )
-        gameLogic.makeMove(0)
+        val changedPositions = gameLogic.makeMove(0)
+        assertEquals(changedPositions, listOf(0))
         assertTrue(gameLogic.getItemList()[0].isVisible)
     }
 
@@ -59,7 +61,8 @@ class GameLogicTest {
                 Item("B", false), Item("B", false),
             )
         )
-        gameLogic.makeMove(2)
+        val changedPositions = gameLogic.makeMove(2)
+        assertEquals(changedPositions, listOf(2))
         for (index in listOf<Int>(0, 1, 2)) {
             assertTrue(gameLogic.getItemList()[index].isVisible)
         }
@@ -74,7 +77,8 @@ class GameLogicTest {
                 Item("B", true), Item("B", false),
             )
         )
-        gameLogic.makeMove(1)
+        val changedPositions = gameLogic.makeMove(1)
+        assertEquals(changedPositions, listOf(1, 0, 2))
         for (index in listOf<Int>(0, 2, 3)) {
             assertFalse(gameLogic.getItemList()[index].isVisible)
         }

@@ -15,16 +15,19 @@ class GameLogic(
         return true
     }
 
-    fun makeMove(position: Int) {
+    fun makeMove(position: Int): MutableList<Int> {
+        val changedPositions: MutableList<Int> = mutableListOf(position)
         if (getVisibleItemCount() % 2 == 0) {
-            hideItemsWithoutPairs()
+            hideItemsWithoutPairs(changedPositions)
         }
         showItemAt(position)
+        return changedPositions
     }
 
-    private fun hideItemsWithoutPairs() {
+    private fun hideItemsWithoutPairs(changedPositions: MutableList<Int>) {
         for (position in getPositionsOfItemsWithoutPairs()) {
             setVisibility(position, false)
+            changedPositions.add(position)
         }
     }
 
