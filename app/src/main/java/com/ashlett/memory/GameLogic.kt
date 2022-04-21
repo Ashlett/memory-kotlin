@@ -1,16 +1,8 @@
 package com.ashlett.memory
 
-class GameLogic {
-    private val itemList: List<Item> = listOf(
-        Item("\uD83D\uDE42"), Item("\uD83D\uDE42"),
-        Item("\uD83D\uDC25"), Item("\uD83D\uDC25"),
-        Item("\uD83D\uDC1F"), Item("\uD83D\uDC1F"),
-        Item("⭐️"), Item("⭐️"),
-        Item("\uD83C\uDF4E"), Item("\uD83C\uDF4E"),
-        Item("⚽️"), Item("⚽️"),
-        Item("\uD83D\uDD6F"), Item("\uD83D\uDD6F"),
-        Item("❤️"), Item("❤️"),
-    ).shuffled()
+class GameLogic(
+    private val itemList: MutableList<Item> = ItemListMaker().makeList()
+) {
 
     fun getItemList() = itemList
 
@@ -23,37 +15,45 @@ class GameLogic {
         return true
     }
 
-    fun makeMove(position: Int) {
+    fun makeMove(position: Int): MutableList<Int> {
+        val changedPositions: MutableList<Int> = mutableListOf(position)
         if (getVisibleItemCount() % 2 == 0) {
-            hideItemsWithoutPairs()
+            hideItemsWithoutPairs(changedPositions)
         }
         showItemAt(position)
+        return changedPositions
     }
 
-    private fun hideItemsWithoutPairs() {
-        for (item in getItemsWithoutPairs()) {
-            item.isVisible = false
+    private fun hideItemsWithoutPairs(changedPositions: MutableList<Int>) {
+        for (position in getPositionsOfItemsWithoutPairs()) {
+            setVisibility(position, false)
+            changedPositions.add(position)
         }
     }
 
     private fun showItemAt(position: Int) {
-        itemList[position].isVisible = true
+        setVisibility(position, true)
     }
 
-    private fun getItemsWithoutPairs(): List<Item> {
-        val soloItems: MutableList<Item> = mutableListOf()
-        for (item1 in itemList) {
-            if (item1.isVisible && !hasPair(item1)) {
-                soloItems.add(item1)
+    private fun setVisibility(position: Int, isVisible: Boolean) {
+        val newItem = itemList[position].copy(isVisible = isVisible)
+        itemList[position] = newItem
+    }
+
+    private fun getPositionsOfItemsWithoutPairs(): List<Int> {
+        val soloItems: MutableList<Int> = mutableListOf()
+        for ((index, item) in itemList.withIndex()) {
+            if (item.isVisible && !hasPair(index, item)) {
+                soloItems.add(index)
             }
         }
         return soloItems
     }
 
-    private fun hasPair(item1: Item): Boolean {
+    private fun hasPair(index1: Int, item1: Item): Boolean {
         var hasPair = false
-        for (item2 in itemList) {
-            if (item2 != item1 && item2.text == item1.text && item2.isVisible) {
+        for ((index2, item2) in itemList.withIndex()) {
+            if (index2 != index1 && item2.text == item1.text && item2.isVisible) {
                 hasPair = true
             }
         }

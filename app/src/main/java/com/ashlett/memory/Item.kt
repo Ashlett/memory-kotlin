@@ -1,6 +1,6 @@
 package com.ashlett.memory
 
-class Item(
+data class Item(
     val text: String,
-    var isVisible: Boolean = false,
+    val isVisible: Boolean = false,
 )

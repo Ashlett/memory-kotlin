@@ -7,7 +7,8 @@ class GamePresenter(
 
     override fun start(view: GameView) {
         this.view = view
-        view.renderView(game.getItemList())
+        val itemList = game.getItemList()
+        view.renderView(itemList, IntRange(0, itemList.size - 1).toList())
     }
 
     override fun stop() {
@@ -15,10 +16,10 @@ class GamePresenter(
     }
 
     fun makeMove(position: Int) {
-        game.makeMove(position)
+        val changedPositions: List<Int> = game.makeMove(position)
         if (game.isWon()) {
             view?.gameOver()
         }
-        view?.renderView(game.getItemList())
+        view?.renderView(game.getItemList(), changedPositions)
     }
 }
